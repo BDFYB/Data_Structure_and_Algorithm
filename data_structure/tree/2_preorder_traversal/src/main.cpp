@@ -32,11 +32,11 @@ int main(int argv, char* argc[]) {
     std::cout << std::endl;
     */
     Solution solution;
-    std::cout << "递归方式实现的中序遍历：";
+    std::cout << "递归方式实现的前序遍历：";
     vector<int> result_1;
     solution.pre_order_traversal_recursion(result_1, tree.roots());
     print_vector(result_1);
-    std::cout << "非递归方式实现的中序遍历：";
+    std::cout << "非递归方式实现的前序遍历：";
     vector<int> result_2;
     solution.pre_order_traversal_recursion(result_2, tree.roots());
     print_vector(result_2);

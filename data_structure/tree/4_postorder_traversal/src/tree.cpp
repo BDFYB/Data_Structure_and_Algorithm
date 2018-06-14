@@ -27,19 +27,19 @@ Node* Tree::search(Node* current_node, int val) {
 
 void Tree::insert(Node* roots, int val) {
     if (roots == NULL) {
-        std::cout << "new node: " << val << std::endl;
+        //std::cout << "new node: " << val << std::endl;
         roots = new Node(val);
         return;
     }
     if (val < roots->val) {
-        std::cout << "insert left" << std::endl;
+        //std::cout << "insert left" << std::endl;
         if (roots->left == NULL) {
             roots->left = new Node(val);
         } else {
             insert(roots->left, val);
         }
     } else {
-        std::cout << "insert right" << std::endl;
+        //std::cout << "insert right" << std::endl;
         if (roots->right == NULL) {
             roots->right = new Node(val);
         } else {
