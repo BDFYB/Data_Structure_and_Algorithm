@@ -3,24 +3,27 @@
 using std::vector;
 
 vector<int> Solution::post_order_traversal(Node* root) {
-    vector<Node*> node_stack;
     vector<int> ret;
-    Node* last_visit_node = NULL;
-    while (node_stack.size() > 0 || root != NULL) {
+    vector<Node*> node_stack;
+    Node* last_node;
+    
+    while(root != NULL || node_stack.size() != 0) {
+        Node* current;
         if (root != NULL) {
             node_stack.push_back(root);
             root = root->left;
         } else {
-            Node* current = node_stack.back();
-            if (current->right != NULL && last_visit_node != current->right) {
+            current = node_stack.back();
+            if (current->right != NULL && last_node != current->right) {
                 root = current->right;
             } else {
-                node_stack.pop_back();
                 ret.push_back(current->val);
-                last_visit_node = current;
+                node_stack.pop_back();
+                last_node = current;
             }
         }
     }
+
     return ret;
 };
 
