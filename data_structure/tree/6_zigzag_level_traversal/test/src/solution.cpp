@@ -16,13 +16,12 @@ vector<vector<int> > Solution::zigzag_level_order(Node* root) {
         return ret;
     }
 
-    queue<Node*> node_queue;
     ret.push_back(vector<int>());
-    Node* flag = root;
+    queue<Node*> node_queue;
     node_queue.push(root);
-
+    Node* last = root;
     int level = 0;
-    while(node_queue.size() > 0) {
+    while (node_queue.size() != 0) {
         Node* current = node_queue.front();
         node_queue.pop();
         if (level % 2 == 0) {
@@ -30,17 +29,15 @@ vector<vector<int> > Solution::zigzag_level_order(Node* root) {
         } else {
             ret[level].insert(ret[level].begin(), current->val);
         }
-        //ret[level].insert(level%2 ? ret[level].begin() : ret[level].end(), current->val);
-
         if (current->left != NULL) {
             node_queue.push(current->left);
         }
         if (current->right != NULL) {
             node_queue.push(current->right);
         }
-        if (flag == current) {
+        if (current == last) {
             level++;
-            flag = node_queue.back();
+            last = node_queue.back();
             ret.push_back(vector<int>());
         }
     }

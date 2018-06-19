@@ -5,8 +5,7 @@
 
 class Solution {
 public:
-    std::vector<int> level_order(Node* root);
-    std::vector<std::vector<int> > level_order_ret_mat(Node* root);
+    std::vector<std::vector<int> > zigzag_level_order(Node* root);
 };
 
 #endif

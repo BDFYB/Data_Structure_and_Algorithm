@@ -1,44 +1,64 @@
 #include "solution.h"
 #include <queue>
+#include <iostream>
 
 using std::vector;
 using std::queue;
 
+/*
 vector<int> Solution::level_order(Node* root) {
-    vector<int> ret;
-    std::cout << "递归这种方式不分层无法实现" << std::endl;
-    return ret;
 }
+*/
 
-vector<vector<int> > Solution::level_order_ret_mat(Node* root) {
-    vector<vector<int> > ret_root;
-    vector<int> tmp;
-    vector<vector<int> > ret_left;
-    vector<vector<int> > ret_right;
-
-    if (root != NULL) {
-        tmp.push_back(root->val);
-        ret_root.push_back(tmp);
+vector<vector<int> > Solution::zigzag_level_order(Node* root) {
+    vector<vector<int> > ret;
+    if (root == NULL) {
+        return ret;
     }
-
-    if (root != NULL && root->left != NULL) {
-        ret_left = level_order_ret_mat(root->left);
-    }
-    if (root != NULL && root->right != NULL) {
-        ret_right = level_order_ret_mat(root->right);
-    }
-
-    for (int i = 0; i < ret_left.size() || i < ret_right.size(); i++) {
-        if (i < ret_left.size() && i < ret_right.size()) {
-            ret_left[i].insert(ret_left[i].end(), ret_right[i].begin(), ret_right[i].end());
-            ret_root.push_back(ret_left[i]);
-        } else if (i < ret_left.size()) {
-            ret_root.push_back(ret_left[i]);
+    vector<Node*> inorder_node_stack;
+    vector<Node*> reverse_node_stack;
+    bool flag = true;
+    
+    inorder_node_stack.push_back(root);
+    while (true) {
+        if (flag) {
+            vector<int> current_level;
+            while (inorder_node_stack.size() > 0) {
+                Node* current = inorder_node_stack.back();
+                inorder_node_stack.pop_back();
+                if (current->left != NULL) {
+                    reverse_node_stack.push_back(current->left);
+                }
+                if (current->right != NULL) {
+                    reverse_node_stack.push_back(current->right);
+                }
+                current_level.push_back(current->val);
+            }
+            ret.push_back(current_level);
+            flag = flag? false:true;
+            if (reverse_node_stack.size() == 0) {
+                break;
+            }
         } else {
-            ret_root.push_back(ret_right[i]);
+            vector<int> current_level;
+            while (reverse_node_stack.size() > 0) {
+                Node* current = reverse_node_stack.back();
+                reverse_node_stack.pop_back();
+                if (current->right != NULL) {
+                    inorder_node_stack.push_back(current->right);
+                }
+                if (current->left != NULL) {
+                    inorder_node_stack.push_back(current->left);
+                }
+                current_level.push_back(current->val);
+            }
+            flag = flag? false:true;
+            ret.push_back(current_level);
+            if (inorder_node_stack.size() == 0) {
+                break;
+            }
         }
     }
-    return ret_root;
+    return ret;
 };
-
 

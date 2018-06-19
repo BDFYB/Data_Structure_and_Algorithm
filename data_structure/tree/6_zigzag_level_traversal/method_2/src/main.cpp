@@ -42,10 +42,8 @@ int main(int argv, char* argc[]) {
     std::cout << std::endl;
     */
     Solution solution;
-    vector<int> result_1 = solution.level_order(tree.roots());
-    print_vector(result_1);
 
-    vector<vector<int> > result_2 = solution.level_order_ret_mat(tree.roots());
+    vector<vector<int> > result_2 = solution.zigzag_level_order(tree.roots());
     print_matrix(result_2);
     return 0;
 }
