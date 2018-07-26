@@ -1,20 +1,18 @@
 GXX = g++
 GXX_FLAGS = -Wall
-INCLUDE = -I ./include
-
-RM = rm -f
-OBJ = ./src/tree.o 
-OBJ += ./src/main.o 
-OBJ += ./src/solution.o
+INCLUDE = -I ./include 
+OBJ = ./src/main.o
+OBJ += ./src/tree.o
 TARGET = main
+RM = rm -f 
 
 .PHONY: clean, build
 
-build: $(OBJ)
+$(TARGET): $(OBJ)
 	$(GXX) $(GXX_FLAGS) $(INCLUDE) $(OBJ) -o $(TARGET)
 
 ./src/%.o: ./src/%.cpp
 	$(GXX) $(GXX_FLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
-	$(RM) $(TARGET) $(OBJ)
+	$(RM) $(OBJ) $(TARGET)
